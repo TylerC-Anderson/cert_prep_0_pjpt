@@ -17,4 +17,5 @@ Please let me know if you spot an misconceptions, have any pointers, or have any
 - `OPTIONAL/` — supplemental reading and exercises, most of which I pick up to learn the gaps I have before moving on, so these may not be complete even by the time I sit the exam.
 
 ## Contact
-GitHub: `@TylerC-Anderson` • Email: `tc.anderson.tech@gmail.com`
+Email: `tc.anderson.tech@gmail.com`
+LinkedIn: `https://www.linkedin.com/in/tyler-c-anderson/`
