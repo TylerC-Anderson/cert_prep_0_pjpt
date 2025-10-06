@@ -23,7 +23,7 @@ Initial: `http://IPADDR/admin.php`. PrivEsc: `admin:admin` on login screen for `
 
 *Proof — path to flags/screenshot of boxpwn*:
 
-![[z_attachments/Pasted image 20251005230842.png]]
+![[Pasted image 20251005230842.png]]
 
 
 

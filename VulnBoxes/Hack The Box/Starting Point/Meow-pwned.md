@@ -13,7 +13,7 @@ Initial: `nmap -sV IPADDR`. Flag Cap: [`telnet IPADDR`].
 3. *Exploits/Findings*: `cat flag.txt`
 4. *PrivEsc/Persistence*: N/A
 5. *Proof — path to flags/screenshot of boxpwn*: Cat'd flag in home folder
-![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/VulnBoxes/Hack The Box/Starting Point/z_attachments/Pasted image 20251005004421.png]]
+![[Pasted image 20251005004421.png]]
 
 ### Quick Notes
 - *Recon*: 
