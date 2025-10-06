@@ -4,7 +4,7 @@
 
 ### TL;DR
 
-Initial: `nmap -sV IPADDR`. PrivEsc: [`telnet IPADDR`].
+Initial: `nmap -sV IPADDR`. Flag Cap: [`telnet IPADDR`].
 
 ### Key Steps
 
