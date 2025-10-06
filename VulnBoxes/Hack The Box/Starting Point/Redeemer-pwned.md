@@ -31,7 +31,7 @@ Path to Flag Cap:
 
 *Proof — path to flags/screenshot of boxpwn*:
 
-![[Pasted image 20251005220644.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/VulnBoxes/Hack The Box/Starting Point/z_attachments/Pasted image 20251005220644.png]]
 
 ### Findings
 Use espanso command, `:finding`, then remove `UNCONFIRMED` as findings are POCd and remove RMRK with remarks
