@@ -16,7 +16,9 @@ Use OSINT and passive reconnaissance to find initial footholds and potential att
 Generally defined as **Passive reconnaissance**, it breaks down into *2 main categories*
 
 
-### Category 1: **Web/Host** -> ~={red}THE FOCUS OF TCM-SEC PRACTICAL ETHICAL HACKING COURSE=~ 
+### Category 1: Web/Host
+
+**Web/Host** -> ~={red}THE FOCUS OF TCM-SEC PRACTICAL ETHICAL HACKING COURSE=~ 
 
 - ~={green}FIRST STEP ALWAYS=~: **Scope, [[Rules of Engagement]], and Target Validation**- Esp not if performing a bug bounty such as on `bugcrowd`
     - domain/IPs allowed
