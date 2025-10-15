@@ -1,6 +1,6 @@
 ## Box: [Blue] — Started: 2025-10-14 21:10
 
-**IP/Host:** Local VM, `MAC: 00:0c:29:21:0B:A3`  |  **Status:** `In-Progress`
+**IP/Host:** Local VM, `MAC: 00:0c:29:21:0B:A3`  |  **Status:** `owned - 2025-10-14 23:27`
 
 current session IP:
 192.168.109.130
