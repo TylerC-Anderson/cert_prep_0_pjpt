@@ -158,7 +158,7 @@ Session completed.
 
 On `/phpmyadmin` none of the above lets us in, so I'm attempting a `burpsuite` password attack with `grimmie`, since he seems to use insecure passwords according to `note.txt`.
 
-- After attempting this I realized that the web app was redirecting to `phpmyadmin/index.php`, and it was obtaining a session cookie from `phpmyadmin` that was being used for auth. I could have done a two stage attack (where I first have `burpsuite` get the session cookie from `phpmyadmin` then attempt to bruteforce a login to `phpmyadmin/index.php` using the session cookie). But I don't have burpsuite pro, which would have been necessary to use macros from what I could see. 
+- After attempting this I realized that the web app was redirecting to `phpmyadmin/index.php`, and it was obtaining a session cookie from `phpmyadmin` that was being used for auth. I could have done a two stage attack (where I first have `burpsuite` get the session cookie from `phpmyadmin` then attempt to bruteforce a login to `phpmyadmin/index.php` using the session cookie). But I don't have burpsuite pro, which would have been necessary to use macros from what I could see, so this would have been an inefficient lift.
  
 I decided to pivot to a hydra attack to bruteforce `grimmie`'s password on SSH, since I had a username, but this also did not work.
 
@@ -225,8 +225,9 @@ Session completed.
 
 - _Found_: 80 - 192.168.109.131 - 2025-10-16 21:12:27 - Default Apache page served (`It works!`) — default vhost present; server reachable; potential fingerprinting/info exposure.
 - *Found*: 21 - 192.168.109.131 - 2025-10-16 21:31:55 - FTP, while a non-vulnerable version, does allow for anonymous login. -> `note.txt` is downloadable anonymously, and is sensitive data exposure
-    - *Found*: 21 -> 80 - 192.168.109.131 - 2025-10-16 22:00:19 - Was allowed access to student's account and changed their password
-- *Found*: 80 - 192.168.109.131 - 2025-10-17 00:02:29 - unrestricted access to SQL db named `onlinecourse.sql`, which contains admin's password hash
+    - *Found*: 21 -> 80 - 192.168.109.131/academy - 2025-10-16 22:00:19 - Was allowed access to student's account and changed their password
+- *Found*: 80 - 192.168.109.131/academy - 2025-10-17 00:02:29 - unrestricted access to SQL db named `onlinecourse.sql`, which contains admin's password hash
+- *UNCONFIRMED - Found*: 80 - 192.168.109.131/academy/admin - 2025-10-17 00:33:34 - Bad admin credentials (presumably default admin credentials)
 
 ### Commands Learned or Commands Used
 
