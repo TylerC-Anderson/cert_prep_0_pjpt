@@ -4,6 +4,7 @@
 *Tools*:
 - `nikto` - `nikto -h http://192.168.109.129` -  Enums web servers, listing vulnerabilities if in the DB that nikto accesses.
 - `Firefox about:config` - If you find an outdated config and you need to enable legacy compatibility
+- `ffuf` - directory fuzzer capable of recursion (see commands for usage)
 - `gobuster` & `dirbuster` & `dirb` - Directory Busting tools
     - IP address format to use in dirbuster (summoned with `dirbuster&`):
         - http://192.168.109.129:80/
@@ -18,6 +19,10 @@
 - `Browser Dev Tools` - View Page Source Code for code or code comments with information disclosures, passwords, keys, user accounts, or (if in CTFs) hints or flags
 - `BurpSuite` - Use repeater to change API calls
 
+**Commands**:
+- `gobuster dir -u http://TARGETIPADDR[:PORTNUM]/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt` - Single directory buster (non-recursive, see `ffuf`)
+- `ffuf -u http://TARGET/FUZZ -w /usr/share/seclists/Discovery/Web-Content/common.txt -recursion -recursion-depth 2 -e .php,.html -mc 200,301,302 -o ffuf_results.json` - FUZZ is the injection point - basic recursive fuzzing with depth 2, append .php/.html
+`
 ## General
 
 **Objective**: Find usable exploits for port 80 (HTTP) or 443 (HTTPS), investigate directories by *Directory Busting*, look for hidden; test/example; or misconfigured pages, look for leaked server names.
