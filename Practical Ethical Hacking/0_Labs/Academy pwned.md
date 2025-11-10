@@ -249,7 +249,7 @@ At this point I started wondering if I was overcomplicating this, which would us
 Here is how that was done:
 - paste code from https://github.com/pentestmonkey/php-reverse-shell to a shell script: `└─$ nano payloads/phprvshell.php` 
     - Ensure code is pointed at correct IPADDR and port for you, and other options are satisfied
-- start nc listener on attack box for port and IP addr (see [[Shell Ops]] for more details)
+- start nc listener on attack box for port and IP addr (see [[Gaining Shell Access]] for more details)
 - upload shell script to vuln app, like you would in the below screenshot by clicking `browse` > `update`:
 ![[Pasted image 20251018181558.png|500]]
 

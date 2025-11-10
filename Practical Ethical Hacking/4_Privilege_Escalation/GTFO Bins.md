@@ -1,0 +1,1 @@
+If you run `sudo -l` and there are commands you can run as `sudo` without passwords, it's good to check https://gtfobins.github.io/ to see if there is a privesc shell command for that passwordless sudo command you have access to

