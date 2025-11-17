@@ -1,4 +1,8 @@
+### Example AD attack workflow:
+llmnr -> user's hash -> crack hash -> password spray within AD domain -> found new login -> [[Pass the hash|secretsdump]] the logins -> local admin hashes found -> respray the AD domain with new accounts found
 
+
+### Example attack start workflow
 1. Enable either:
     1. `responder` (more detailed engagement, see [[LLMNR Poisoning]] and [[SMB Relay]] for more)
     2. `mitm6` (quicker engagement, see [[IPv6 Attacks]] for more)
