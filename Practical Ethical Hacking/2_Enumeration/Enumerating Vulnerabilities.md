@@ -45,8 +45,8 @@
 
 
 **Overview**: Typically, the juiciest targets are:
-- [[HTTP and HTTPS Enumeration|Port 80]]
-- [[HTTP and HTTPS Enumeration|Port 443]]
+- [[Enumerating HTTP and HTTPS|Port 80]]
+- [[Enumerating HTTP and HTTPS|Port 443]]
 - [[Enumerating SMB|Port 139/445]]
 
 

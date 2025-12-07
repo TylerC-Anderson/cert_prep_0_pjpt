@@ -267,7 +267,7 @@ $ whoami
 www-data
 ```
 
-- From there we uploaded [[Linpeas|linpeas]] ran it, and got this useful output out of it:
+- From there we uploaded [[LinPEAS, WinPEAS, & SharPEAS|linpeas]] ran it, and got this useful output out of it:
 ```bash
 ==MYSQL PWD==
 
