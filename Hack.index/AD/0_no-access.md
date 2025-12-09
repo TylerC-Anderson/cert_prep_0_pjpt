@@ -32,6 +32,8 @@ If HTTP/HTTPS banners reference SharePoint, Outlook, OWA, Teams, or Azure AD →
 - [[2_Enumeration/0_General - Enumeration Gathering]]
 - [[2_Enumeration/Enumerating HTTP and HTTPS]]
 - [[2_Enumeration/Enumerating SSH]]
+- [[SMB Relay]]
+- [[Enumerating SMB]]
 
 ### Supplemental / Contextual
 
