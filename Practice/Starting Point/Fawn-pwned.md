@@ -23,7 +23,7 @@ Initial: `anonymous@IPADDR`. Flag Cap: `ftp> get flag.txt`.
 
 *Proof — path to flags/screenshot of boxpwn*:
 
-![[Pasted image 20251005205523.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practice/Starting Point/z_attachments/Pasted image 20251005205523.png]]
 
 ### Commands Learned
 ```bash

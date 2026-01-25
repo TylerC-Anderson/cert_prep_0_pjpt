@@ -1,17 +1,17 @@
 ## Full methodology workflow
 
-1. Run [[nmap - Active Scanning|nmap]] against target IP addr
+1. Run [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/nmap - Active Scanning|nmap]] against target IP addr
 2. 
 
 ### Post-Compromise Attack Strategy, pre-domain compromise:
 Once you get an account:
 - search for quick wins:
-    - [[Kerberoasting]]
-    - [[Pass the hash|secretsdump.py]]
-    - [[Pass the hash|Pass the Hash/Password]]
+    - [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Kerberoasting]]
+    - [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Pass the hash|secretsdump.py]]
+    - [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Pass the hash|Pass the Hash/Password]]
     - Trying to find if there any access Vertically? if not, any access laterally? There might be vertical climbs in other accounts you can pivot to
 - No quick wins -> dig deeper:
-    - Enumerate with [[Bloodhound and Plumhound Enumeration|bloodhound]]
+    - Enumerate with [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Bloodhound and Plumhound Enumeration|bloodhound]]
         - Who are the users? 
         - Do we have connection to domain admins?
     - Try to find:
@@ -34,13 +34,13 @@ Once you get an account:
     - creating a golden ticket can be useful too
 
 ### Example AD attack workflow:
-llmnr -> user's hash -> crack hash -> password spray within AD domain -> found new login -> [[Pass the hash|secretsdump]] the logins -> local admin hashes found -> respray the AD domain with new accounts found
+llmnr -> user's hash -> crack hash -> password spray within AD domain -> found new login -> [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Pass the hash|secretsdump]] the logins -> local admin hashes found -> respray the AD domain with new accounts found
 
 
 ### Example attack start workflow
 1. Enable either:
-    1. `responder` (more detailed engagement, see [[LLMNR Poisoning]] and [[SMB Relay]] for more)
-    2. `mitm6` (quicker engagement, see [[IPv6 Attacks]] for more)
+    1. `responder` (more detailed engagement, see [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/LLMNR Poisoning]] and [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Active Directory/SMB Relay]] for more)
+    2. `mitm6` (quicker engagement, see [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/IPv6 Attacks]] for more)
 2. Run scans to generate traffic
 3. If scans take too long, look for websites in scope (http_version)
 4. Look for default credentials on web logins

@@ -12,7 +12,7 @@ If `sudo -l` works →
 
 If SUID/SGID binaries exist →
     → Check for GTFOBins matches
-    → [[4_Privilege_Escalation/GTFO Bins]]
+    → [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/4_Privilege_Escalation/GTFO Bins]]
 
 If crontab / timers writable →
     → Privilege escalation vector
@@ -28,14 +28,14 @@ If SSH keys readable →
 
 ### Core Tools:
 
-- [[4_Privilege_Escalation/LinPEAS, WinPEAS, & SharPEAS]]
-- [[4_Privilege_Escalation/GTFO Bins]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/4_Privilege_Escalation/LinPEAS, WinPEAS, & SharPEAS]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/4_Privilege_Escalation/GTFO Bins]]
 
 ### Secondary Actions:
 
-- [[3_Exploitation/Hashcracking]]
-- [[5_Post-Exploitation/Hosted Payloads & File Transfers]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Hashcracking]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/5_Post-Exploitation/Hosted Payloads & File Transfers]]
 
 ### Supplemental / Contextual
 
-- [[5_Post-Exploitation/Pivoting]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/5_Post-Exploitation/Pivoting]]

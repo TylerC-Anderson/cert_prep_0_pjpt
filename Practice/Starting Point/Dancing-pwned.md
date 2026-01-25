@@ -54,7 +54,7 @@ Initial: `smbclient \\\\IPADDR\\WorkShares`. Flag Cap: `smb: \James.P\> get flag
 
 *Proof — path to flags/screenshot of boxpwn*:
 
-![[Pasted image 20251005212613.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practice/Starting Point/z_attachments/Pasted image 20251005212613.png]]
 
 
 ### Commands Learned or Commands Used

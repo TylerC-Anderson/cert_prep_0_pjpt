@@ -8,9 +8,9 @@ IPv4 is most common, but IPv6 was created in case we ran out of IPv4 addresses (
 
 `ifconfig`- prints network information
 
-![[Pasted image 20251005004018.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/z_attachments/Pasted image 20251005004018.png]]
 
-![[Pasted image 20251005004105.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/z_attachments/Pasted image 20251005004105.png]]
 
 ~={green}1=~ - IPv4 address
 ~={red}2=~ - IPv6 address
@@ -18,7 +18,7 @@ IPv4 is most common, but IPv6 was created in case we ran out of IPv4 addresses (
 We ran out of IPv4 address space long ago, so why don't we use IPv6?
 - A: We don't need to, because we use **NAT**: Network Address Translation, and can assign Private IP addresses using **NAT**
 - Below is an image showing the common IP address spaces, categorized by a *Class*
-![[Pasted image 20251005004127.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/z_attachments/Pasted image 20251005004127.png]]
 
 - **Class C** is the most common Home and Small business usage
     - Less hosts per network, but **many** networks
@@ -58,7 +58,7 @@ may also be represented as:
 ``00:0c:29:94:55:05``
 
 `ifconfig` will also print the MAC address, under the `ether` field
-![[Pasted image 20251005004147.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/z_attachments/Pasted image 20251005004147.png]]
 
 
 
@@ -123,7 +123,7 @@ Model of the Networking Stack and its devices.
 
 It's easiest to think of this system as functioning where each highest value `1` bit in sequence in the `subnet` locks the bit determining the IP address in place. See the diagram below.
 
-![[Pasted image 20251005004158.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/z_attachments/Pasted image 20251005004158.png]]
 
 So, **subnets** in essence restrict the number of hosts that can be found at the *network ID*. The *network ID* is always going to be the lowest value address possible within the **subnet**. Meanwhile, the *broadcast IP* is always going to be the highest value address in that **subnet**
 
@@ -134,7 +134,7 @@ The *Netmask* of the above would be ~={blue}255.255.255.192=~
 
 *Netmask* is also in the output of `ifconfig` (`ipconfig` in Windows). ~={red}See below(1)=~. The equivalent of the *Netmask* below would be a `/24` network, so the IP address in that notation would be `192.168.57.139/24`. This is also called a **wack-24** network.
 
-![[Pasted image 20251005004208.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/z_attachments/Pasted image 20251005004208.png]]
 
 **Network Hosts** can be easily calculated from netmask or **CIDR** notation by writing out the binary notation of the Netmask if in Netmask form, or `n`=prefix length number of 1's where, counting the 0's following the unbroken sequence of `1` bits in the binary notation (we'll call this value that results from this process $x$), and retrieving $2^{x}$, subtracting two hosts since the Network ID address and the broadcast IP address are reserved, and that final value is the **host count**.
 - *Quick in your head calculation*- Memorize that `/24` is 256 total hosts, then if the CIDR number is less than `24` you multiply 256 by 2 for each integer below `24`, or multiply for each integer above `24` and **BOOM! You got the hosts after subtracting 2 from that final value**. Can basically do this with your fingers

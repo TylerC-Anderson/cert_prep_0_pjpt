@@ -8,20 +8,20 @@ Goal → Convert basic user access into actionable escalation.
 
 If LDAP bind works →
     → Dump domain structure using LDAP tools  
-    → [[2_Enumeration/Post-Compromise Enumeration/Active Directory/Ldapdomaindump Enumeration]]
+    → [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Ldapdomaindump Enumeration]]
 
 If you can run BloodHound collectors →
     → Identify shortest escalation path  
-    → [[2_Enumeration/Post-Compromise Enumeration/Active Directory/Bloodhound and Plumhound Enumeration]]
+    → [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Bloodhound and Plumhound Enumeration]]
 
 If you see SPNs for any account →
     → Attempt kerberoasting  
-    → [[2_Enumeration/Post-Compromise Enumeration/Active Directory/Kerberoasting]]  
-    → Then crack: [[3_Exploitation/Hashcracking]]
+    → [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Kerberoasting]]  
+    → Then crack: [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Hashcracking]]
 
 If you can read shares (SYSVOL/NETLOGON) →
     → Look for GPP passwords or credential artifacts  
-    → [[3_Exploitation/Post-Compromise Exploitation/GPP Attack AKA cPassword Attacks]]
+    → [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Post-Compromise Exploitation/GPP Attack AKA cPassword Attacks]]
 
 If multiple hosts accept these credentials →
     → Attempt lateral login and environment enumeration  
@@ -29,20 +29,20 @@ If multiple hosts accept these credentials →
 
 If hashes, passwords, or scripts found →
     → Crack or reuse  
-    → [[3_Exploitation/Hashcracking]]
+    → [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Hashcracking]]
 
 ### Core Tools:
 
-- [[2_Enumeration/Post-Compromise Enumeration/Active Directory/Bloodhound and Plumhound Enumeration]]
-- [[2_Enumeration/Post-Compromise Enumeration/Active Directory/Ldapdomaindump Enumeration]]
-- [[2_Enumeration/Post-Compromise Enumeration/Active Directory/Kerberoasting]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Bloodhound and Plumhound Enumeration]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Ldapdomaindump Enumeration]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Kerberoasting]]
 
 ### Secondary Actions:
 
-- [[3_Exploitation/Post-Compromise Exploitation/GPP Attack AKA cPassword Attacks]]
-- [[3_Exploitation/Credential Stuffing & Password Spraying]]
-- [[3_Exploitation/Hashcracking]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Post-Compromise Exploitation/GPP Attack AKA cPassword Attacks]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Credential Stuffing & Password Spraying]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Hashcracking]]
 
 ### Supplemental / Contextual
 
-- [[5_Post-Exploitation/Hosted Payloads & File Transfers]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/5_Post-Exploitation/Hosted Payloads & File Transfers]]

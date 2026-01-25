@@ -1,4 +1,4 @@
-###### *See also*: [[Investigating Breached Credentials]]
+###### *See also*: [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Investigating Breached Credentials]]
 
 ### Key Personnel to enum
 

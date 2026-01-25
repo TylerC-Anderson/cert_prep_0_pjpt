@@ -20,7 +20,7 @@ Generally defined as **Passive reconnaissance**, it breaks down into *2 main cat
 
 **Web/Host** -> ~={red}THE FOCUS OF TCM-SEC PRACTICAL ETHICAL HACKING COURSE=~ 
 
-- ~={green}FIRST STEP ALWAYS=~: **Scope, [[Rules of Engagement]], and Target Validation**- Esp not if performing a bug bounty such as on `bugcrowd`
+- ~={green}FIRST STEP ALWAYS=~: **Scope, [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/6_Reporting/Rules of Engagement]], and Target Validation**- Esp not if performing a bug bounty such as on `bugcrowd`
     - domain/IPs allowed
     - assets out-of-scope
     - allowed techniques

@@ -7,11 +7,11 @@ Goal → Chain access, reuse creds, escalate everywhere possible.
 
 If SSH keys reused →
     → Lateral movement
-    → [[5_Post-Exploitation/Pivoting]]
+    → [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/5_Post-Exploitation/Pivoting]]
 
 If same password reused →
     → Spray across hosts
-    → [[3_Exploitation/Credential Stuffing & Password Spraying]]
+    → [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Credential Stuffing & Password Spraying]]
 
 If backups shared across hosts →
     → Dump creds → escalate
@@ -21,10 +21,10 @@ If admin access differs between hosts →
 
 ### Core Tools:
 
-- [[5_Post-Exploitation/Pivoting]]
-- [[3_Exploitation/Hashcracking]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/5_Post-Exploitation/Pivoting]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Hashcracking]]
 
 ### Supplemental / Contextual
 
-- [[5_Post-Exploitation/Hosted Payloads & File Transfers]]
-- [[5_Post-Exploitation/Persistence & Maintaining Access]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/5_Post-Exploitation/Hosted Payloads & File Transfers]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/5_Post-Exploitation/Persistence & Maintaining Access]]

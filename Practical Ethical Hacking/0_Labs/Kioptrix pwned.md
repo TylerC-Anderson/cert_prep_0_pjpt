@@ -48,7 +48,7 @@ Initial: `exploit/linux/samba/trans2open -> linux/x86/shell_reverse_tcp` . PrivE
 ### Findings
 - *UNCONFIRMED - Found*: 80 - 00:0c:29:f3:29:37 - 2025-10-01 23:07:50 - Default WebPage -> nmap result: `Apache httpd 1.3.20`
 
-- *UNCONFIRMED - Found*: 443 - 00:0c:29:f3:29:37 - 2025-10-02 00:01:29 - EXTREMELY legacy TLS version, SSLv3/TLS1.0. `nmap` output in [[Kioptrix pwned#Findings sourced from NMAP output|nmap findings output]].
+- *UNCONFIRMED - Found*: 443 - 00:0c:29:f3:29:37 - 2025-10-02 00:01:29 - EXTREMELY legacy TLS version, SSLv3/TLS1.0. `nmap` output in [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/Kioptrix pwned#Findings sourced from NMAP output|nmap findings output]].
 
 
 - *UNCONFIRMED - Found*: 80 - IPADDR - 2025-10-02 00:36:04 - Nikto findings:
@@ -57,7 +57,7 @@ Initial: `exploit/linux/samba/trans2open -> linux/x86/shell_reverse_tcp` . PrivE
 
 - *UNCONFIRMED - Found*: 80 - 00:0c:29:f3:29:37 - 2025-10-02 20:15:21 - Info Disclosure -> Server headers
 
-![[Pasted image 20251005004400.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251005004400.png]]
 
 
 ### Commands Learned

@@ -13,7 +13,7 @@ Two main types:
 - *Delegate* - created for logging into a machine or using Remote Desktop
 - *Impersonate* - "Non-interactive" such as attaching a network drive of a domain logon script
 
-Impersonation allows you to pivot, for example to a domain admin so you can do things like run [[Mimikatz]] to get additional hashes, or add a user that is a Domain admin so you can run [[Pass the hash|secretsdump.py]] and compromise the DC
+Impersonation allows you to pivot, for example to a domain admin so you can do things like run [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Post-Compromise Exploitation/Mimikatz]] to get additional hashes, or add a user that is a Domain admin so you can run [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/Pass the hash|secretsdump.py]] and compromise the DC
 
 **Overview**:
 Tokens are Temporary keys that allow you access to a system/network without having to provide credentials each time you access a file, like the concept of cookies in browsers, but for computers and workstations

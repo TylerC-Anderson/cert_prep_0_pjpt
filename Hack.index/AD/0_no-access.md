@@ -8,7 +8,7 @@ Goal → Discover services, confirm AD, identify first footholds.
 
 If you see port 88 (Kerberos) →
     → AD confirmed → Move to 1_anon-access  
-    → Review: [[3_Exploitation/Active Directory/Active Directory Background]]
+    → Review: [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Active Directory/Active Directory Background]]
 
 If you see port 389/636 (LDAP) →
     → Try anon bind later (in 1_anon-access)  
@@ -20,7 +20,7 @@ If you see port 445 (SMB) →
 
 If scanning shows Windows hosts or DNS names like *.local / *.corp / *.internal →
     → Likely AD domain → Note naming conventions  
-    → Check: [[1_Reconnaissance/Investigating Email Addresses]]
+    → Check: [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/1_Reconnaissance/Investigating Email Addresses]]
 
 If HTTP/HTTPS banners reference SharePoint, Outlook, OWA, Teams, or Azure AD →
     → Strong AD presence  
@@ -28,20 +28,20 @@ If HTTP/HTTPS banners reference SharePoint, Outlook, OWA, Teams, or Azure AD →
 
 ### Core Tools:
 
-- [[2_Enumeration/nmap - Active Scanning]]
-- [[2_Enumeration/0_General - Enumeration Gathering]]
-- [[2_Enumeration/Enumerating HTTP and HTTPS]]
-- [[2_Enumeration/Enumerating SSH]]
-- [[SMB Relay]]
-- [[Enumerating SMB]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/nmap - Active Scanning]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/0_General - Enumeration Gathering]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Enumerating HTTP and HTTPS]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Enumerating SSH]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Active Directory/SMB Relay]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Enumerating SMB]]
 
 ### Supplemental / Contextual
 
-- [[Networking Review]]
-- [[Attack Methodology & Strategy]]
-- [[Ethical Hacker Methodology]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/Networking Review]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/Attack Methodology & Strategy]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/Ethical Hacker Methodology]]
 
-- [[1_Reconnaissance/0_General - Reconnaissance & Intel]]
-- [[1_Reconnaissance/Website Reconnaissance]]
-- [[1_Reconnaissance/Investigating Email Addresses]]
-- [[2_Enumeration/Investigating Breached Credentials]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/1_Reconnaissance/0_General - Reconnaissance & Intel]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/1_Reconnaissance/Website Reconnaissance]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/1_Reconnaissance/Investigating Email Addresses]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Investigating Breached Credentials]]

@@ -22,5 +22,5 @@ PrivEsc: Flag was on desktop after connection.
 
 *Proof — path to flags/screenshot of boxpwn*:
 
-![[Pasted image 20251005225127.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practice/Starting Point/z_attachments/Pasted image 20251005225127.png]]
 

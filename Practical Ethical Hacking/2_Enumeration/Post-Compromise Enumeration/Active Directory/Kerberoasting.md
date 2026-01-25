@@ -29,7 +29,7 @@ Takes advantage of service accounts.
 
 
 
-![[Pasted image 20251116152007.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Post-Compromise Enumeration/Active Directory/z_attachments/Pasted image 20251116152007.png]]
 
 
 ## Mitigations

@@ -71,13 +71,13 @@ Finished
 3. *Findings & Exploits*:
 
 `/academy`:
-![[Pasted image 20251016211617.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251016211617.png|500]]
 *this is a mySQL db as well*:
-![[Pasted image 20251016212219.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251016212219.png|500]]
 
 
 `phpmyadmin`:
-![[Pasted image 20251016211805.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251016211805.png|500]]
 
 
 ##### FTP next
@@ -204,7 +204,7 @@ Session completed.
 ```
 
 - admin:admin into `academy/admin` from the second round of enum got us to the online course admin panel
-![[Pasted image 20251017000737.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251017000737.png|500]]
 
 - in the `admin` panel, attempting to reset Rum Ham's password shows the url in the browser tools uses a script that's called after the query operator:
 http://192.168.109.131/academy/admin/manage-students.php?id=10201321&pass=update
@@ -249,9 +249,9 @@ At this point I started wondering if I was overcomplicating this, which would us
 Here is how that was done:
 - paste code from https://github.com/pentestmonkey/php-reverse-shell to a shell script: `└─$ nano payloads/phprvshell.php` 
     - Ensure code is pointed at correct IPADDR and port for you, and other options are satisfied
-- start nc listener on attack box for port and IP addr (see [[Gaining Shell Access]] for more details)
+- start nc listener on attack box for port and IP addr (see [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/3_Exploitation/Gaining Shell Access]] for more details)
 - upload shell script to vuln app, like you would in the below screenshot by clicking `browse` > `update`:
-![[Pasted image 20251018181558.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251018181558.png|500]]
 
 - Reverse shell should have started on `netcat` listener you set up:
 ```bash
@@ -267,7 +267,7 @@ $ whoami
 www-data
 ```
 
-- From there we uploaded [[LinPEAS, WinPEAS, & SharPEAS|linpeas]] ran it, and got this useful output out of it:
+- From there we uploaded [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/4_Privilege_Escalation/LinPEAS, WinPEAS, & SharPEAS|linpeas]] ran it, and got this useful output out of it:
 ```bash
 ==MYSQL PWD==
 

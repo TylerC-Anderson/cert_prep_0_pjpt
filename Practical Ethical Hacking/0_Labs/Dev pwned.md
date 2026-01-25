@@ -198,9 +198,9 @@ BoltWire 6.03 - Local File Inclusion                                            
 ```
 
 retrieving the /etc/passwd:
-![[Pasted image 20251109161747.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251109161747.png]]
 
-![[Pasted image 20251109161840.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251109161840.png]]
 
 7. using that to SSH in as jeanpaul (presumably `jp`):
 
@@ -241,7 +241,7 @@ User jeanpaul may run the following commands on dev:
     (root) NOPASSWD: /usr/bin/zip
 ```
 
-9. Using [[GTFO Bins]] to privesc using the unprotected zip command:
+9. Using [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/4_Privilege_Escalation/GTFO Bins]] to privesc using the unprotected zip command:
 ```bash
 jeanpaul@dev:~$ TF=$(mktemp -u)
 jeanpaul@dev:~$ sudo zip $TF /etc/hosts -T -TT 'sh #'
@@ -266,18 +266,18 @@ test of /tmp/tmp.y4NU6atD7j OK
 #### *Branch 1, File upload attempt*:
 
 Enumeration has revealed several documents suggesting this is a php server:
-![[Pasted image 20251030000523.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251030000523.png|500]]
 
 
 
 also likely using SQL for the backend DB (SQLi access attempts failed so far: `admin' -- ` and `admin' AND '1=1' -- ` were both tried)
 
 However, this page suggests that I may be able to plant a file directly into the webroot folder:
-![[Pasted image 20251030000439.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251030000439.png|500]]
 
 there is a file that suggests that requirements-checker.php is included no matter what:
 
-![[Pasted image 20251030000624.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251030000624.png|500]]
 
 So I wonder if I can upload a file with the open NFS port. If so then I may also be able to upload a reverse shell script
 
@@ -394,56 +394,56 @@ nikto -h http://192.168.109.136:8080
 #### Branch 3
 
 Which leads to this page:
-![[Pasted image 20251031003646.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031003646.png|500]]
 
-![[Pasted image 20251031003709.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031003709.png|500]]
 
-![[Pasted image 20251031003731.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031003731.png|500]]
 
 *We have admin*
 
 From here we can pivot. Navigating to `site > Actions`:
-![[Pasted image 20251031004249.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031004249.png]]
 
 Then `uploads`:
 
-![[Pasted image 20251031004327.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031004327.png|500]]
 
 then remove `action=source`:
 
-![[Pasted image 20251031004445.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031004445.png|500]]
 
 we can upload a reverse shell:
 
-![[Pasted image 20251031004642.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031004642.png|500]]
 
 doesn't execute:
 
-![[Pasted image 20251031004900.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031004900.png|500]]
 
 Let's try a different way to get a shell. 
 
 
 Before we can do that I need to give myself editing permissions by the looks of it. See this page:
 
-![[Pasted image 20251031005501.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031005501.png|500]]
 
 
 
 I think I can get code permissions by adding myself to the "editor" group:
 
 
-![[Pasted image 20251031005142.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031005142.png]]
 
 
 Looks like this was done already:
 
-![[Pasted image 20251031005641.png|500]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251031005641.png|500]]
 
 
 Let's try adding a reverse shell here:
 
-![[Pasted image 20251109144534.png]]
+![[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/0_Labs/z_attachments/Pasted image 20251109144534.png]]
 
 
 These didn't work, so far

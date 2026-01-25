@@ -45,9 +45,9 @@
 
 
 **Overview**: Typically, the juiciest targets are:
-- [[Enumerating HTTP and HTTPS|Port 80]]
-- [[Enumerating HTTP and HTTPS|Port 443]]
-- [[Enumerating SMB|Port 139/445]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Enumerating HTTP and HTTPS|Port 80]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Enumerating HTTP and HTTPS|Port 443]]
+- [[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/2_Enumeration/Enumerating SMB|Port 139/445]]
 
 
 

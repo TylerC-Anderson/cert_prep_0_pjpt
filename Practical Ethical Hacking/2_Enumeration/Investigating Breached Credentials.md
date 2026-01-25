@@ -1,4 +1,4 @@
-###### *See also*:[[Investigating Email Addresses]]
+###### *See also*:[[2_Studies/Courses/Current/CERTPREP - PJPT-Practical Jr Pen Tester/Practical Ethical Hacking/1_Reconnaissance/Investigating Email Addresses]]
 
 
 ## Overview
