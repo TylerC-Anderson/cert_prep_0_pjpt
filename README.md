@@ -1,10 +1,8 @@
 # PJPT — Practical Jr. Pen Tester (Study Notes)
 
-Here are the notes I am using while I prepare for the PJPT, which I am scheduled to take the week of December 7, 2025.
+Here are the notes I am using while I prepared for the PJPT, which I completed the week of December 7, 2025.
 
-**Please Note**: 
-1) These notes are a work in progress! There WILL be things missing which will be filled as I move through the course. There may even be some misconceptions that I will update.
-2) These notes are written and rendered in `Obsidian`, so the formatting on GitHub is weird due to markdown implementation differences. That means: no pictures 😢. I'm looking to fix by maybe moving to a GitHub Pages in the future.
+**Please Note**: These notes are written and rendered in `Obsidian`, so the formatting on GitHub is weird due to markdown implementation differences. That means: no pictures 😢.
 
 I redacted (and continue to redact) all flags and bug bounty practice data.
 
